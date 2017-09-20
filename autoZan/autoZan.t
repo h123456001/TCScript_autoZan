@@ -1,4 +1,4 @@
-﻿变量 线程ID
+﻿var 线程ID
 var hwnd
 var mousewillmovex,mousewillmovey
 var windowsizewidth,windowssizeheight
@@ -7,30 +7,34 @@ var flag
 
 var findstartx,findstarty
 //从这里开始执行
-功能 执行()
+function 执行()
     //从这里开始你的代码
+    //hwnd在顶部已经声明 
+    //windowfind查找窗口标题为Freestyle! 类名为GAMEFRAMEWORK
     hwnd = windowfind("Freestyle!","GAMEFRAMEWORK")
-    windowclienttoscreen(hwnd,0,0,findstartx,findstarty)
-    windowsizewidth = 1024+findstartx
-    windowssizeheight = 768+findstarty
     
+    //如果windowsfind返回结果不是0 则说明窗口又找到
     if(hwnd!=0)
+        //使用 windowclienttoscreen 方法得到窗口客户端区域 (不含蓝色条 ) 存入findstartx,findstarty
+        windowclienttoscreen(hwnd,0,0,findstartx,findstarty)
+        windowsizewidth = 1024+findstartx
+        windowssizeheight = 768+findstarty
         var ret=windowactivate(hwnd) 
         sleep(200)
         ret = is选角色界面()
         
     end
-结束
+end
 //启动_热键操作
-功能 启动_热键()
-    线程ID=线程开启("执行","")
-    var loopfindpic = 线程开启("循环3秒找图","")
-结束
+function 启动_热键()
+    线程ID=threadbegin("执行","")
+    var loopfindpic = threadbegin("循环3秒找图","")
+end
 
 //终止热键操作
-功能 终止_热键()
-    线程关闭(线程ID)
-结束
+function 终止_热键()
+    threadclose(线程ID)
+end
 
 function is选角色界面()
     var picindex,x,y
@@ -43,9 +47,9 @@ function is选角色界面()
         if(ret)
             ret = windowmousemove(hwnd,mousewillmovex,mousewillmovey)
             if(ret)
-                鼠标中键单击(2)
+                mousemiddleclick(2)
             else
-                消息框("没找到找到当前界面")
+                messagebox("没找到找到当前界面")
             end
         end
         
