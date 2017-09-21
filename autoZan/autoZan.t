@@ -21,6 +21,7 @@ function 执行()
         windowssizeheight = 768+findstarty
         var ret=windowactivate(hwnd) 
         sleep(200)
+        //执行界面判断 并将结果存入ret
         ret = is选角色界面()
         
     end
@@ -87,13 +88,62 @@ function isfind创建角色按钮()
             sleep(200)
             //创建昵称
             var i = 0
-            while(i<14)
-                //var rndchar = rnd(65,90)//A-Z:65-90  0-9:48-57  //jianpan A-Z:29-54
-                var keycode = rnd(29,54)
-                
-                keysendstring(keycode)
-                
+            var ii= 0
+            //9英文 4数字
+            while(i<9)
+                var keycode = rnd(65,90)
+                keypress(keycode)
                 i++
+            end
+            while(ii<3)
+                //var rndchar = rnd(65,90)//A-Z:65-90  0-9:48-57  //jianpan A-Z:29-54   0-9 7-16
+                var keycode = rnd(48,57)
+                
+                //keysendstring(keycode)
+                keypress(keycode)
+                ii++
+            end
+			var lastret = findpic(findstartx,findstarty,windowsizewidth,windowssizeheight,"rc:创建角色last.bmp",#101010,1.0,1,rx,ry)
+            if(lastret!=-1)
+                mousemove(rx+3,ry+1)
+				mouseleftdclick(2)
+				sleep(200)
+            end
+            
+            sleep(1000)
+            //检查弹窗 成功 恭喜您完成....成就
+            var createSuccessResult = findpic(findstartx,findstarty,windowsizewidth,windowssizeheight,"rc:创建成功确定.bmp",#101010,1.0,1,rx,ry)
+            if(createSuccessResult!=-1)
+                mousemove(rx+3,ry+1)
+				mouseleftdclick(2)
+				sleep(1000)
+                //
+            end
+            
+            var createSuccessResult1 = findpic(findstartx,findstarty,windowsizewidth,windowssizeheight,"rc:进入游戏.bmp",#101010,1.0,1,rx,ry)
+            if(1!=-1)
+                mousemove(rx+3,ry+1)
+				mouseleftdclick(2)
+				sleep(7000)
+                //
+            end
+            
+            //进入游戏大厅 弹窗检测
+            var alertTipResult = findpic(findstartx,findstarty,windowsizewidth,windowssizeheight,"rc:创建成功确定.bmp",#101010,1.0,1,rx,ry)
+            if(alertTipResult!=-1)
+                mousemove(rx+3,ry+1)
+				mouseleftdclick(2)
+				sleep(1000)
+                //
+            end
+            
+            //调出直播列表
+            var livinglist = findpic(findstartx,findstarty,windowsizewidth,windowssizeheight,"rc:调出直播列表.bmp",#101010,1.0,1,rx,ry)
+            if(livinglist!=-1)
+                mousemove(rx+3,ry+1)
+				mouseleftdclick(2)
+				sleep(3000)
+                //
             end
             
             
